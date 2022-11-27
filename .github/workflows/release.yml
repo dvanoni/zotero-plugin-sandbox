@@ -13,7 +13,10 @@ jobs:
         with:
           node-version: '16'
           cache: 'npm'
-      - run: npm ci
+      # Skip post-install scripts here, as a malicious script could steal NODE_AUTH_TOKEN.
+      - run: npm ci --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
       - id: xpi-release
         uses: softprops/action-gh-release@v1
