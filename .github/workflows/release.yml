@@ -20,14 +20,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
-      - id: xpi-release
+      - id: release-xpi
+        name: Release XPI
         uses: softprops/action-gh-release@v1
         with:
           files: xpi/*.xpi
           generate_release_notes: true
       - name: Generate update manifest
-        run: npm run generateUpdateManifest -- ${{ fromJSON(steps.xpi-release.outputs.assets)[0].browser_download_url }}
-      - uses: softprops/action-gh-release@v1
+        run: npm run generateUpdateManifest -- ${{ fromJSON(steps.release-xpi.outputs.assets)[0].browser_download_url }}
+      - name: Publish update manifest
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: release
           files: gen/update*
