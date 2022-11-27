@@ -1,0 +1,33 @@
+{
+  "name": "zotero-plugin-sandbox",
+  "version": "0.1.0",
+  "description": "Sandbox for testing Zotero plugins",
+  "scripts": {
+    "build": "node build.js",
+    "clean": "rm -r build gen xpi",
+    "generateUpdateManifest": "zotero-plugin-generate-update",
+    "postbuild": "zotero-plugin-zipup build sandbox",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dvanoni/zotero-plugin-sandbox.git"
+  },
+  "author": {
+    "name": "David Hoff-Vanoni",
+    "email": "david@vanoni.dev"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dvanoni/zotero-plugin-sandbox/issues"
+  },
+  "homepage": "https://github.com/dvanoni/zotero-plugin-sandbox#readme",
+  "xpi": {
+    "name": "Sandbox",
+    "releaseURL": "https://github.com/dvanoni/zotero-plugin-sandbox/releases/download/release/",
+    "supportsZotero7": true
+  },
+  "devDependencies": {
+    "@dvanoni/zotero-plugin": "^1.5.0"
+  }
+}

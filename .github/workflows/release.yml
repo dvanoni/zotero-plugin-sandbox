@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - id: xpi-release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: xpi/*.xpi
+          generate_release_notes: true
+      - name: Generate update manifest
+        run: npm run generateUpdateManifest -- ${{ fromJSON(steps.xpi-release.outputs.assets)[0].browser_download_url }}
+      - uses: softprops/action-gh-release@v1
+        with:
+          tag_name: release
+          files: gen/update*
