@@ -30,7 +30,7 @@ jobs:
         with:
           name: xpi
           path: xpi/*.xpi
-      - run: echo '${{ toJSON(steps.upload-xpi.outputs) }}'
+      - run: echo '${{ toJSON(github.event) }}'
       - name: Comment PR build
         if: github.event_name == 'pull_request'
         uses: mshick/add-pr-comment@v2
