@@ -11,6 +11,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     permissions:
+      packages: read
       pull-requests: write
     steps:
       - uses: actions/checkout@v3
