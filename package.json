@@ -28,6 +28,6 @@
     "supportsZotero7": true
   },
   "devDependencies": {
-    "@dvanoni/zotero-plugin": "^1.5.0"
+    "@dvanoni/zotero-plugin": "^1.5.1"
   }
 }
