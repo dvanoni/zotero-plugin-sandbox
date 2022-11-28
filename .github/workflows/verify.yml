@@ -26,6 +26,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
       - id: artifact-name
+        if: github.event_name == 'pull_request'
         name: Generate artifact name
         uses: actions/github-script@v6
         with:
@@ -45,4 +46,4 @@ jobs:
 
             **✅ Successful build**
 
-            Download: [${{ steps.artifact-name.outputs.result }}](https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/${{ steps.artifact-name.outputs.result }}.zip)
+            ⬇️ Download: [${{ steps.artifact-name.outputs.result }}](https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/${{ steps.artifact-name.outputs.result }}.zip)
