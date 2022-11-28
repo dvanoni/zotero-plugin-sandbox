@@ -1,14 +1,12 @@
-name: Build & Release
+name: Release
 
 on:
   push:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+    tags:
+      - v*.*.*
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -22,20 +20,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
-      - name: Upload xpi artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: xpi
-          path: xpi/*.xpi
-  release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download xpi artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: xpi
       - id: release-xpi
         name: Release xpi
         uses: softprops/action-gh-release@v1
