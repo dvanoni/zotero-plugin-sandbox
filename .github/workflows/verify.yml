@@ -26,11 +26,14 @@ jobs:
       - run: npm run build
       - id: artifact-name
         name: Generate artifact name
-        run: echo "name=sandbox-${{ github.ref_name }}" >> $GITHUB_OUTPUT
+        uses: actions/github-script@v6
+        with:
+          result-encoding: string
+          script: return `sandbox-${require('./gen/version')}`
       - name: Upload xpi artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.artifact-name.outputs.name }}
+          name: ${{ steps.artifact-name.outputs.result }}
           path: build/
       - name: Comment PR build
         if: github.event_name == 'pull_request'
@@ -41,4 +44,4 @@ jobs:
 
             **✅ Successful build**
 
-            Download: [${{ steps.artifact-name.outputs.name }}](https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/${{ steps.artifact-name.outputs.name }}.zip)
+            Download: [${{ steps.artifact-name.outputs.result }}](https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/${{ steps.artifact-name.outputs.result }}.zip)
