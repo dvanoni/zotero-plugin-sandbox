@@ -24,9 +24,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
+      - id: upload-xpi
+        name: Upload xpi artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: xpi
+          path: xpi/*.xpi
+      - run: echo '${{ toJSON(steps.upload-xpi) }}'
       - name: Comment PR build
         if: github.event_name == 'pull_request'
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            **✅ Successful build**
+            **✅ Successful build again**
