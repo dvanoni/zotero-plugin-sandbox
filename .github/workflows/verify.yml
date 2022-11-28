@@ -29,12 +29,14 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: xpi
-          path: xpi/*.xpi
+          path: build/
       - name: Comment PR build
         if: github.event_name == 'pull_request'
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            **✅ Successful build again**
+            ## 🤖 Build Bot
+
+            **✅ Successful build**
 
             https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/xpi.zip
