@@ -10,6 +10,8 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -22,3 +24,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
+      - id: upload-xpi
+        name: Upload xpi artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: xpi
+          path: xpi/*.xpi
+      - run: echo '${{ toJSON(steps.upload-xpi.outputs) }}'
+      - name: Comment PR build
+        if: github.event_name == 'pull_request'
+        uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            **✅ Successful build again**
