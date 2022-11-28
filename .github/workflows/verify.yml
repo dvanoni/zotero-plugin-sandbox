@@ -30,10 +30,11 @@ jobs:
         with:
           name: xpi
           path: xpi/*.xpi
-      - run: echo '${{ toJSON(github.event) }}'
       - name: Comment PR build
         if: github.event_name == 'pull_request'
         uses: mshick/add-pr-comment@v2
         with:
           message: |
             **✅ Successful build again**
+
+            https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/xpi.zip
