@@ -7,6 +7,7 @@
     "clean": "rm -r build gen xpi",
     "generateUpdateManifest": "zotero-plugin-generate-update",
     "postbuild": "zotero-plugin-zipup build sandbox",
+    "start": "zotero-start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/dvanoni/zotero-plugin-sandbox#readme",
   "xpi": {
+    "bootstrapped": true,
     "name": "Sandbox",
     "releaseURL": "https://github.com/dvanoni/zotero-plugin-sandbox/releases/download/release/",
     "supportsZotero7": true
