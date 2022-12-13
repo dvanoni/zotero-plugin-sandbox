@@ -10,9 +10,6 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    permissions:
-      packages: read
-      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -26,6 +23,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
       - id: artifact-name
+        if: github.event_name == 'pull_request'
         name: Generate artifact name
         uses: actions/github-script@v6
         with:
