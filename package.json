@@ -1,6 +1,6 @@
 {
   "name": "zotero-plugin-sandbox",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Sandbox for testing Zotero plugins",
   "scripts": {
     "build": "node build.js",
