@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9](https://github.com/dvanoni/zotero-plugin-sandbox/compare/v0.1.8...v0.1.9) (2024-01-17)
+
+
+### Bug Fixes
+
+* Ensure release stays as draft until the end ([9ffcea0](https://github.com/dvanoni/zotero-plugin-sandbox/commit/9ffcea05d2cdd295d465bab87522bed6beb1d0d9))
+
 ## [0.1.8](https://github.com/dvanoni/zotero-plugin-sandbox/compare/v0.1.7...v0.1.8) (2024-01-17)
 
 
