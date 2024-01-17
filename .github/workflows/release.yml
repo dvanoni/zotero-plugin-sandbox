@@ -32,15 +32,16 @@ jobs:
       # Skip post-install scripts here, as a malicious script could steal NODE_AUTH_TOKEN.
       - run: npm ci --ignore-scripts
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ github.token }}
       - run: npm run build
       - id: publish-xpi
         name: Publish xpi
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ needs.release-please.outputs.tag_name }}
-          files: xpi/*.xpi
+          draft: true
           fail_on_unmatched_files: true
+          files: xpi/*.xpi
+          tag_name: ${{ needs.release-please.outputs.tag_name }}
       - name: Generate update manifest
         run: npm run generateUpdateManifest -- ${{ fromJSON(steps.publish-xpi.outputs.assets)[0].browser_download_url }}
       - name: Publish update manifest
@@ -51,3 +52,5 @@ jobs:
           fail_on_unmatched_files: true
       - name: Publish release
         run: gh release edit ${{ needs.release-please.outputs.tag_name }} --draft=false
+        env:
+          GH_TOKEN: ${{ github.token }}
